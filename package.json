@@ -41,6 +41,7 @@
     "@nrwl/linter": "14.7.5",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/workspace": "14.7.5",
+    "@schematics/angular": "^14.2.3",
     "@types/jest": "28.1.1",
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.36.1",

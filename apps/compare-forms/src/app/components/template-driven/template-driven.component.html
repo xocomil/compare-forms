@@ -1,0 +1,28 @@
+<form autocomplete="off">
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input
+      type="email"
+      matInput
+      name="email"
+      [(ngModel)]="email"
+      placeholder="Ex. pat@example.com"
+    />
+  </mat-form-field>
+  <mat-checkbox [(ngModel)]="agreedToEmails" name="agreedToEmails"
+    >Please send me emails. I love spam.</mat-checkbox
+  >
+  <mat-form-field appearance="fill">
+    <mat-label>Email Frequency</mat-label>
+    <mat-select [(ngModel)]="emailFrequency" name="emailFrequency">
+      <mat-select-trigger>
+        {{ emailFrequency || 'Frequency' }}
+      </mat-select-trigger>
+      <mat-option
+        *ngFor="let frequency of emailFrequencies | objectToEntries"
+        [value]="frequency[0]"
+        >{{ frequency[1] }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</form>
