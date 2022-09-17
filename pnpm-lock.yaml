@@ -37,6 +37,7 @@ specifiers:
   jest-preset-angular: ~12.2.2
   nx: 14.7.5
   prettier: ^2.6.2
+  prettier-plugin-organize-attributes: ^0.0.5
   rxjs: ~7.5.0
   stylelint: ^14.11.0
   stylelint-config-prettier-scss: ^0.0.1
@@ -89,6 +90,7 @@ devDependencies:
   jest-preset-angular: 12.2.2_smsyswjwizrpmkkwxodpcvhtna
   nx: 14.7.5
   prettier: 2.7.1
+  prettier-plugin-organize-attributes: 0.0.5_prettier@2.7.1
   stylelint: 14.11.0
   stylelint-config-prettier-scss: 0.0.1_stylelint@14.11.0
   stylelint-config-standard-scss: 5.0.0_74u2qasxp5mudia6vln5kcfuni
@@ -10640,6 +10642,15 @@ packages:
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  /prettier-plugin-organize-attributes/0.0.5_prettier@2.7.1:
+    resolution: {integrity: sha512-dSts16q8wd+oq8Zwk5mwmYXo1aN3B+ZkEJqx/ar5fedNHdOvx7S4XDMH/pNK7rmBW0bPXkp/kJX5gAANsWzh3A==}
+    engines: {node: '>=11.0.0'}
+    peerDependencies:
+      prettier: ^2.0.0
+    dependencies:
+      prettier: 2.7.1
+    dev: true
 
   /prettier/2.7.1:
     resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
