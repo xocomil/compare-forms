@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "compare-forms": "apps/compare-forms",
+    "compare-forms-e2e": "apps/compare-forms-e2e"
+  }
+}
