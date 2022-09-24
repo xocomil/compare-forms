@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { TemplateDrivenComponent } from './components/template-driven/template-driven.component';
+import { CommonModule } from "@angular/common";
+import { Component } from "@angular/core";
+import { TemplateDrivenComponent } from "./components/template-driven/template-driven.component";
 
 @Component({
   selector: 'compare-forms-root',

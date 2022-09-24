@@ -1,22 +1,22 @@
-<form autocomplete="off">
+<form class="column-based-form" autocomplete="off">
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
     <input
       type="email"
       matInput
       name="email"
-      [(ngModel)]="email"
+      [(ngModel)]="vm.email"
       placeholder="Ex. pat@example.com"
     />
   </mat-form-field>
-  <mat-checkbox [(ngModel)]="agreedToEmails" name="agreedToEmails"
+  <mat-checkbox [(ngModel)]="vm.agreedToEmails" name="agreedToEmails"
     >Please send me emails. I love spam.</mat-checkbox
   >
   <mat-form-field appearance="fill">
     <mat-label>Email Frequency</mat-label>
-    <mat-select [(ngModel)]="emailFrequency" name="emailFrequency">
+    <mat-select [(ngModel)]="vm.emailFrequency" name="emailFrequency">
       <mat-select-trigger>
-        {{ emailFrequency || 'Frequency' }}
+        {{ vm.emailFrequency || 'Frequency' }}
       </mat-select-trigger>
       <mat-option
         *ngFor="let frequency of emailFrequencies | objectToEntries"
