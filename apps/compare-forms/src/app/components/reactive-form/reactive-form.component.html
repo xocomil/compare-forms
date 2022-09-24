@@ -1,24 +1,24 @@
-<form class="column-based-form" autocomplete="off">
-  <h2>Template Driven</h2>
+<form class="column-based-form" [formGroup]="formGroup" autocomplete="off">
+  <h2>Reactive</h2>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
     <input
       type="email"
       matInput
       name="email"
-      [(ngModel)]="vm.email"
+      formControlName="email"
       placeholder="Ex. pat@example.com"
       autocomplete="off"
     />
   </mat-form-field>
-  <mat-checkbox [(ngModel)]="vm.agreedToEmails" name="agreedToEmails"
+  <mat-checkbox formControlName="agreedToEmails" name="agreedToEmails"
     >Please send me emails. I love spam.</mat-checkbox
   >
   <mat-form-field appearance="fill">
     <mat-label>Email Frequency</mat-label>
-    <mat-select [(ngModel)]="vm.emailFrequency" name="emailFrequency">
+    <mat-select formControlName="emailFrequency" name="emailFrequency">
       <mat-select-trigger>
-        {{ vm.emailFrequency || 'Frequency' }}
+        {{ formGroup.controls.emailFrequency.value || 'Frequency' }}
       </mat-select-trigger>
       <mat-option
         *ngFor="let frequency of emailFrequencies | objectToEntries"
@@ -29,6 +29,6 @@
   </mat-form-field>
 
   <pre>
-Form values: {{ vm | json }}
+Form values: {{ formValues$ | ngrxPush | json }}
   </pre>
 </form>

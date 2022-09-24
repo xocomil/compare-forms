@@ -5,6 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { EmailFormModel } from '../../models/email-form.model';
 import { EmailFrequency } from '../../models/email-frequency';
 import { ObjectToEntriesPipe } from './object-to-entries.pipe';
 
@@ -25,8 +26,9 @@ import { ObjectToEntriesPipe } from './object-to-entries.pipe';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class TemplateDrivenComponent {
-  protected email = '';
-  protected agreedToEmails = false;
-  protected emailFrequency?: EmailFrequency;
+  protected vm: EmailFormModel = {
+    email: '',
+    agreedToEmails: false,
+  };
   protected emailFrequencies = EmailFrequency;
 }
