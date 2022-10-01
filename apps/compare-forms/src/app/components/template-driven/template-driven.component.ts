@@ -38,13 +38,13 @@ export class TemplateDrivenComponent {
     this.vm = emptyEmailForm();
   }
 
-  saveForm(): false | void {
+  saveForm(): void {
     if (!this.form.valid) {
-      console.log('form', this.form);
+      console.warn('There were issues with the template driven form');
 
       alert(`There are issues with your form. Please fix them and try again.`);
 
-      return false;
+      return;
     }
 
     console.log('Template form saved!', this.vm);

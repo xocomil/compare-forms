@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
@@ -29,7 +35,7 @@ import { ObjectToEntriesPipe } from '../template-driven/object-to-entries.pipe';
 })
 export class ReactiveFormComponent {
   protected formGroup = new FormGroup({
-    email: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
     agreedToEmails: new FormControl(false),
     emailFrequency: new FormControl<EmailFrequency | null>(null),
   });
@@ -37,12 +43,24 @@ export class ReactiveFormComponent {
 
   protected readonly formValues$ = this.formGroup.valueChanges;
 
-  resetForm(): void {
-    this.formGroup.reset(emptyEmailForm());
+  resetForm(form: FormGroupDirective): void {
+    form.resetForm(emptyEmailForm());
   }
 
-  saveForm(): void {
+  saveForm(form: FormGroupDirective): false | void {
+    if (!this.formGroup.valid) {
+      console.warn('There were issues saving the reactive form');
+
+      alert(
+        'Something is wrong with your form. Please fix the errors and try again.'
+      );
+
+      return false;
+    }
+
     this.#reallySaveTheForm(this.#transformToEmailFormModel(this.formGroup));
+
+    this.resetForm(form);
   }
 
   #reallySaveTheForm(model: EmailFormModel) {
@@ -51,8 +69,6 @@ export class ReactiveFormComponent {
     window.alert(
       `Reactive form was saved with value: ${JSON.stringify(model)}`
     );
-
-    this.resetForm();
   }
 
   #transformToEmailFormModel(form: typeof this.formGroup): EmailFormModel {
