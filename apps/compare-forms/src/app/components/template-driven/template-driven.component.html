@@ -1,4 +1,9 @@
-<form class="column-based-form" autocomplete="off" (submit)="saveForm()">
+<form
+  class="column-based-form"
+  #form="ngForm"
+  autocomplete="off"
+  (submit)="saveForm()"
+>
   <h2>Template Driven</h2>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
@@ -9,6 +14,7 @@
       [(ngModel)]="vm.email"
       placeholder="Ex. pat@example.com"
       autocomplete="off"
+      required
     />
   </mat-form-field>
   <mat-checkbox [(ngModel)]="vm.agreedToEmails" name="agreedToEmails"
