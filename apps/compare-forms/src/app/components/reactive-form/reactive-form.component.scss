@@ -14,4 +14,11 @@
   > * {
     margin: 0.5em 0;
   }
+
+  .button-container {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 0.5rem;
+  }
 }

@@ -1,4 +1,9 @@
-<form class="column-based-form" [formGroup]="formGroup" autocomplete="off">
+<form
+  class="column-based-form"
+  [formGroup]="formGroup"
+  autocomplete="off"
+  (submit)="saveForm()"
+>
   <h2>Reactive</h2>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
@@ -27,6 +32,11 @@
       >
     </mat-select>
   </mat-form-field>
+
+  <div class="button-container">
+    <button type="button" mat-raised-button (click)="resetForm()">Reset</button>
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
 
   <pre>
 Form values: {{ formValues$ | ngrxPush | json }}
