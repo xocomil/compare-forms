@@ -5,3 +5,8 @@ export interface EmailFormModel {
   agreedToEmails: boolean;
   emailFrequency?: EmailFrequency;
 }
+
+export const emptyEmailForm = (): EmailFormModel => ({
+  email: '',
+  agreedToEmails: false,
+});

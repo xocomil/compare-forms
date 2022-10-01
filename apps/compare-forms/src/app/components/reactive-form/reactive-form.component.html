@@ -1,4 +1,10 @@
-<form class="column-based-form" [formGroup]="formGroup" autocomplete="off">
+<form
+  class="column-based-form"
+  [formGroup]="formGroup"
+  autocomplete="off"
+  (ngSubmit)="saveForm(form)"
+  #form="ngForm"
+>
   <h2>Reactive</h2>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
@@ -10,6 +16,17 @@
       placeholder="Ex. pat@example.com"
       autocomplete="off"
     />
+    <mat-error
+      *ngIf="
+        formGroup.controls.email.hasError('email') &&
+        !formGroup.controls.email.hasError('required')
+      "
+    >
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="formGroup.controls.email.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
   </mat-form-field>
   <mat-checkbox formControlName="agreedToEmails" name="agreedToEmails"
     >Please send me emails. I love spam.</mat-checkbox
@@ -28,7 +45,16 @@
     </mat-select>
   </mat-form-field>
 
+  <div class="button-container">
+    <button type="button" mat-raised-button (click)="resetForm(form)">
+      Reset
+    </button>
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+
   <pre>
 Form values: {{ formValues$ | ngrxPush | json }}
+
+Submitted: {{ form.submitted | json }}
   </pre>
 </form>

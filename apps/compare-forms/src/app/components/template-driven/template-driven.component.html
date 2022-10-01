@@ -1,4 +1,9 @@
-<form class="column-based-form" autocomplete="off">
+<form
+  class="column-based-form"
+  #form="ngForm"
+  autocomplete="off"
+  (submit)="saveForm()"
+>
   <h2>Template Driven</h2>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
@@ -9,7 +14,16 @@
       [(ngModel)]="vm.email"
       placeholder="Ex. pat@example.com"
       autocomplete="off"
+      required
+      email
+      #email="ngModel"
     />
+    <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="email.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
   </mat-form-field>
   <mat-checkbox [(ngModel)]="vm.agreedToEmails" name="agreedToEmails"
     >Please send me emails. I love spam.</mat-checkbox
@@ -27,6 +41,11 @@
       >
     </mat-select>
   </mat-form-field>
+
+  <div class="button-container">
+    <button type="button" mat-raised-button (click)="resetForm()">Reset</button>
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
 
   <pre>
 Form values: {{ vm | json }}
