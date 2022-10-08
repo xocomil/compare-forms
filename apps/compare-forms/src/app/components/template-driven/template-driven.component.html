@@ -19,7 +19,8 @@
       #email="ngModel"
     />
     <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-      Please enter a valid email address
+      Your email address is invalid. A valid email address includes a user, an @
+      sign and a domain.
     </mat-error>
     <mat-error *ngIf="email.hasError('required')">
       Email is <strong>required</strong>
@@ -30,7 +31,13 @@
   >
   <mat-form-field appearance="fill">
     <mat-label>Email Frequency</mat-label>
-    <mat-select [(ngModel)]="vm.emailFrequency" name="emailFrequency">
+    <mat-select
+      [(ngModel)]="vm.emailFrequency"
+      name="emailFrequency"
+      [disabled]="!vm.agreedToEmails"
+      required
+      #emailFrequency="ngModel"
+    >
       <mat-select-trigger>
         {{ vm.emailFrequency || 'Frequency' }}
       </mat-select-trigger>
@@ -40,6 +47,9 @@
         >{{ frequency[1] }}</mat-option
       >
     </mat-select>
+    <mat-error *ngIf="emailFrequency.hasError('required')">
+      Frequency is required when you want to receive spam.
+    </mat-error>
   </mat-form-field>
 
   <div class="button-container">

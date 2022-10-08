@@ -33,7 +33,7 @@
   >
   <mat-form-field appearance="fill">
     <mat-label>Email Frequency</mat-label>
-    <mat-select formControlName="emailFrequency" name="emailFrequency">
+    <mat-select formControlName="emailFrequency" name="emailFrequency" [disabled]="!formGroup.controls.agreedToEmails.value">
       <mat-select-trigger>
         {{ formGroup.controls.emailFrequency.value || 'Frequency' }}
       </mat-select-trigger>
@@ -43,6 +43,9 @@
         >{{ frequency[1] }}</mat-option
       >
     </mat-select>
+    <mat-error *ngIf="formGroup.controls.emailFrequency.hasError('required')">
+      Frequency is required when you want to receive spam.
+    </mat-error>
   </mat-form-field>
 
   <div class="button-container">
@@ -54,7 +57,5 @@
 
   <pre>
 Form values: {{ formValues$ | ngrxPush | json }}
-
-Submitted: {{ form.submitted | json }}
   </pre>
 </form>
