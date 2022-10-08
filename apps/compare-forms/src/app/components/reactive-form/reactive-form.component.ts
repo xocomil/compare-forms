@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { PushModule } from '@ngrx/component';
+import { Subscription } from "rxjs";
 import { EmailFormModel, emptyEmailForm } from '../../models/email-form.model';
 import { EmailFrequency } from '../../models/email-frequency';
 import { ObjectToEntriesPipe } from '../template-driven/object-to-entries.pipe';
@@ -33,15 +34,32 @@ import { ObjectToEntriesPipe } from '../template-driven/object-to-entries.pipe';
   styleUrls: ['./reactive-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReactiveFormComponent {
+export class ReactiveFormComponent implements OnInit, OnDestroy {
   protected formGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     agreedToEmails: new FormControl(false),
-    emailFrequency: new FormControl<EmailFrequency | null>(null),
+    emailFrequency: new FormControl<EmailFrequency | null>(null, [
+      Validators.required,
+    ]),
   });
   protected emailFrequencies = EmailFrequency;
 
   protected readonly formValues$ = this.formGroup.valueChanges;
+
+  readonly #subs = new Subscription();
+
+  ngOnInit(): void {
+    this.#subs.add(
+      this.formGroup.valueChanges.subscribe((value) => {
+        if(!value.agreedToEmails) {
+          this.formGroup.controls.emailFrequency.reset(null, {onlySelf: true});
+        }
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.#subs.unsubscribe();
+  }
 
   resetForm(form: FormGroupDirective): void {
     form.resetForm(emptyEmailForm());
