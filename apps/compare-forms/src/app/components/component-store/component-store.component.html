@@ -1,0 +1,63 @@
+<form *ngrxLet="vm$ as vm" class="column-based-form" autocomplete="off">
+  <h2>Template Driven</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input
+      type="email"
+      matInput
+      name="email"
+      [ngModel]="vm.email"
+      (ngModelChange)="emailChanged($event)"
+      placeholder="Ex. pat@example.com"
+      autocomplete="off"
+      #email="ngModel"
+    />
+    <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+      Your email address is invalid. A valid email address includes a user, an @
+      sign and a domain.
+    </mat-error>
+    <mat-error *ngIf="email.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-checkbox
+    [ngModel]="vm.agreedToEmails"
+    (ngModelChange)="agreedToEmails($event)"
+    name="agreedToEmails"
+    >Please send me emails. I love spam.</mat-checkbox
+  >
+  <mat-form-field appearance="fill">
+    <mat-label>Email Frequency</mat-label>
+    <mat-select
+      [ngModel]="vm.emailFrequency"
+      (ngModelChange)="emailFrequencyChanged($event)"
+      name="emailFrequency"
+      [disabled]="!vm.agreedToEmails"
+      required
+      #emailFrequency="ngModel"
+    >
+      <mat-select-trigger>
+        {{ vm.emailFrequency || 'Frequency' }}
+      </mat-select-trigger>
+      <mat-option
+        *ngFor="let frequency of emailFrequencies | objectToEntries"
+        [value]="frequency[0]"
+        >{{ frequency[1] }}</mat-option
+      >
+    </mat-select>
+    <mat-error *ngIf="emailFrequency.hasError('required')">
+      Frequency is required when you want to receive spam.
+    </mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button type="button" mat-raised-button (click)="resetForm()">Reset</button>
+    <button type="button" mat-raised-button color="primary" (click)="save()">
+      Save
+    </button>
+  </div>
+
+  <pre>
+Form values: {{ vm | json }}
+  </pre>
+</form>
