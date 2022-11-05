@@ -82,7 +82,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/compare-forms"],
+      "outputs": ["{workspaceRoot}/coverage/apps/compare-forms"],
       "options": {
         "jestConfig": "apps/compare-forms/jest.config.ts",
         "passWithNoTests": true
