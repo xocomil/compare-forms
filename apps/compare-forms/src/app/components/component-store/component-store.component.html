@@ -1,7 +1,12 @@
-<form *ngrxLet="vm$ as vm" class="column-based-form" autocomplete="off">
-  <h2>Template Driven</h2>
+<form
+  *ngrxLet="vm$ as vm"
+  class="column-based-form"
+  autocomplete="off"
+  #form="ngForm"
+>
+  <h2>Component Store</h2>
   <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
+    <mat-label>Email *</mat-label>
     <input
       type="email"
       matInput
@@ -10,14 +15,9 @@
       (ngModelChange)="emailChanged($event)"
       placeholder="Ex. pat@example.com"
       autocomplete="off"
-      #email="ngModel"
     />
-    <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
-      Your email address is invalid. A valid email address includes a user, an @
-      sign and a domain.
-    </mat-error>
-    <mat-error *ngIf="email.hasError('required')">
-      Email is <strong>required</strong>
+    <mat-error *ngFor="let error of vm.errors?.email">
+      {{ error }}
     </mat-error>
   </mat-form-field>
   <mat-checkbox

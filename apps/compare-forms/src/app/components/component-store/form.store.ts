@@ -46,28 +46,31 @@ export class FormStore extends ComponentStore<FormState> {
     validate$.pipe(
       withLatestFrom(this.vm$),
       tap(([, { email, agreedToEmails, emailFrequency }]) => {
+        let emailErrors: string[] = [];
+
         if (!email) {
-          this.#addError({ key: 'email', error: 'Email is required' });
+          emailErrors = [...emailErrors, 'Email is required'];
         }
         if (email.indexOf('@') <= 0 || email.indexOf('.') <= 0) {
-          this.#addError({
-            key: 'email',
-            error: 'Valid email addresses look like test@test.com.',
-          });
+          emailErrors = [
+            ...emailErrors,
+            'Valid email addresses look like test@test.com.',
+          ];
         }
+
+        this.#setErrors({ key: 'email', errors: emailErrors });
       })
     )
   );
 
-  readonly #addError = this.updater(
-    (state, error: { key: keyof EmailFormModel; error: string }) =>
+  readonly #setErrors = this.updater(
+    (state, error: { key: keyof EmailFormModel; errors: string[] }) =>
       produce(state, (draft) => {
         const errors = state.errors ?? {};
-        const theseErrors = errors[error.key] ?? [];
 
         draft.errors = {
           ...errors,
-          [error.key]: [...theseErrors, error.error],
+          [error.key]: error.errors,
         };
       })
   );
